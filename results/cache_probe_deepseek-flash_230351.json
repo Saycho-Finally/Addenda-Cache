@@ -1,0 +1,489 @@
+{
+  "model": "deepseek-flash",
+  "ts": 1790866982.6575956,
+  "probes": [
+    {
+      "tag": "c2_rep1",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep2",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep3",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep4",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep5",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep6",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep7",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep8",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep9",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep10",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep11",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep12",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep13",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep14",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep15",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c2_rep16",
+      "prompt_tok": 20,
+      "hit": 0,
+      "miss": 20,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c1_q1",
+      "prompt_tok": 1726,
+      "hit": 0,
+      "miss": 1726,
+      "hit_rate": 0.0
+    },
+    {
+      "tag": "c1_q2",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q3",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q4",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q5",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q6",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q7",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q8",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q9",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q10",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q11",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q12",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q13",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q14",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q15",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q16",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q17",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q18",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q19",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q20",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q21",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q22",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q23",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q24",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q25",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q26",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q27",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q28",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q29",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q30",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q31",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q32",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q33",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q34",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q35",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q36",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q37",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q38",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q39",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q40",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q41",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q42",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q43",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q44",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q45",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q46",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q47",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q48",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q49",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c1_q50",
+      "prompt_tok": 1726,
+      "hit": 1536,
+      "miss": 190,
+      "hit_rate": 0.8899
+    },
+    {
+      "tag": "c3_orig",
+      "prompt_tok": 866,
+      "hit": 640,
+      "miss": 226,
+      "hit_rate": 0.739
+    },
+    {
+      "tag": "c3_mut",
+      "prompt_tok": 867,
+      "hit": 640,
+      "miss": 227,
+      "hit_rate": 0.7382
+    },
+    {
+      "tag": "c3_orig2",
+      "prompt_tok": 866,
+      "hit": 640,
+      "miss": 226,
+      "hit_rate": 0.739
+    }
+  ]
+}
