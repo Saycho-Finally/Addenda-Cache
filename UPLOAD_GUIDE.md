@@ -1,6 +1,6 @@
 # 手动推送步骤（GitHub 网络通时执行）
 
-前置：代理/VPN 已开启（能访问 github.com），GitHub 已登录过（Addenda-LM 推送过即满足）。
+前置：代理/VPN 已开启（能访问 github.com），GitHub 已登录过（PPBExt-Knowledge 推送过即满足）。
 
 ## 方式一：一键脚本（推荐）
 
@@ -36,4 +36,4 @@ git -c http.schannelCheckRevoke=false push -u origin main
 
 ## 验证
 
-推送成功后刷新 https://github.com/Saycho-Finally/Addenda-Cache ，应看到 README、cachecortex/、benchmarks/、reports/、results/ 等目录。
+推送成功后刷新 https://github.com/Saycho-Finally/PPBExt-Cache ，应看到 README、cachecortex/、benchmarks/、reports/、results/ 等目录。
