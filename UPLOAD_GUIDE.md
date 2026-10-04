@@ -36,4 +36,4 @@ git -c http.schannelCheckRevoke=false push -u origin main
 
 ## 验证
 
-推送成功后刷新 https://github.com/Sycho-Finally/Addenda-Cache ，应看到 README、cachecortex/、benchmarks/、reports/、results/ 等目录。
+推送成功后刷新 https://github.com/Saycho-Finally/Addenda-Cache ，应看到 README、cachecortex/、benchmarks/、reports/、results/ 等目录。
