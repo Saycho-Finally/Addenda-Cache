@@ -2,7 +2,7 @@
 
 **一句话**：DeepSeek 的前缀缓存命中，服务端只提供能力，**命中率是客户端的设计决策**——本项目把"客户端可观测、可预测、可编排"的部分形式化为一个 Python 库（CacheCortex）和三条经验定律，在真实 API 上实测稳态输入命中率 **98.3%~99.8%**（随负载分母变化，与预测公式一致），并给出覆盖 11 类负载的命中率预算表。
 
-> 作者：Saycho-Finally（独立研究者）｜ AI 使用声明见 [AI_DISCLOSURE.md](AI_DISCLOSURE.md) ｜ License: MIT ｜ 技术报告：[reports/三定律技术报告.md](reports/三定律技术报告.md)
+> 作者：Saycho-Finally（独立研究者） ｜ AI 使用声明见 [AI_DISCLOSURE.md](AI_DISCLOSURE.md) ｜ License: MIT ｜ 零依赖 ｜ Python ≥3.10 ｜ 技术报告：[reports/三定律技术报告.md](reports/三定律技术报告.md)
 
 ---
 
