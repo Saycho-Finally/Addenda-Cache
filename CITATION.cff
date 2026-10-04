@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "如果本仓库的工作对您的研究有帮助，请按以下格式引用。"
+title: "Addenda-Cache：LLM 前缀缓存的应用侧编排：三定律、CacheTiers 探测分层与场景预算（99.81% 实测命中率）"
+authors:
+  - family-names: "Saycho-Finally"
+    alias: "Saycho-Finally"
+version: "0.2.0"
+date-released: "2026-10-04"
+license: MIT
+abstract: >-
+  LLM 前缀缓存的应用侧编排：三定律、CacheTiers 探测分层与场景预算（99.81% 实测命中率）
+repository-code: "https://github.com/Saycho-Finally/Addenda-Cache"
+type: software

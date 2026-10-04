@@ -84,3 +84,13 @@ AI_DISCLOSURE.md  AI 使用声明
 - NVIDIA Dynamo 文档：块价值分层与工具暂停驱逐
 - OpenAI Prompt Caching 201：append-only 循环与 prompt_cache_key
 - SillyTavern 社区：世界书前缀区实践、ST-Message-Chunker、Cache-Refresh
+
+
+---
+
+## 贡献与引用
+
+- 贡献指南见 [CONTRIBUTING.md](CONTRIBUTING.md)；行为准则见 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- 安全问题请走 [SECURITY.md](SECURITY.md) 的私密渠道（勿开公开 Issue）
+- 版本变更见 [CHANGELOG.md](CHANGELOG.md)；学术引用格式见 [CITATION.cff](CITATION.cff)
+- 许可：MIT
