@@ -1,6 +1,6 @@
 """PPBExt-Cache 的 MCP server（stdio 传输，零依赖）。
 
-暴露缓存外挂的**离线**能力为 MCP 工具（不触发真实 API 调用）：
+暴露PPBExt-Cache的**离线**能力为 MCP 工具（不触发真实 API 调用）：
   cache_hitrate_predict  —— 按场景参数预测缓存命中率（三定律模型）
   cache_stack_recommend  —— 按场景推荐杠杆组合（预算/栈）
   cache_tier_guide       —— provider 缓存能力三档（自动前缀/显式标记/无缓存）说明
