@@ -201,7 +201,7 @@ if __name__ == "__main__":
     from cachecortex.hitrate_budget import SCENARIOS
     plans = auto_plan_all(SCENARIOS, tail_compression=0.5)
     for name, p in plans.items():
-        mark = "✓" if p.expected_hit_rate >= 0.95 else "✗"
+        mark = "[是]" if p.expected_hit_rate >= 0.95 else "[否]"
         print(f"[{mark}] {name:18s} expected_hit={p.expected_hit_rate:.1%} "
               f"cost_ratio={p.expected_cost_ratio:.2f}")
         for lv in p.levers:

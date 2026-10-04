@@ -11,7 +11,7 @@ Reasonix 的四个机制与本实现的对应：
   ImmutablePrefix      → system_blocks 拼接后冻结 + prefix_fingerprint（SHA-256 校验）
   AppendOnlyLog        → log 只 append，提供 log_fingerprint 供回归测试
   VolatileScratch      → 思考/草稿不上传（adapter 侧 thinking=False 或不回传 reasoning）
-  Auto-compact         → TODO（接近上下文上限时折叠，折叠后冷 miss 一次属预期）
+  Auto-compact         → 计划中（接近上下文上限时折叠，折叠后冷 miss 一次属预期）
 
 反模式对照：DynamicInPrefixSession 在每轮 system 前部插入递增计数器，
 演示"前缀污染"如何把命中率打穿——一正一反，教学与回归两用。

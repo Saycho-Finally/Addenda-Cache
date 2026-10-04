@@ -182,7 +182,7 @@ if __name__ == "__main__":
     import json
     result = run_all()
     for name, r in result.items():
-        mark = "✓" if r["reachable_95"] else "✗"
+        mark = "[是]" if r["reachable_95"] else "[否]"
         print(f"[{mark}] {name:18s} hit={r['hit_rate']:.1%}  {r['scene']}")
         for lv in r["levers"]:
             print(f"      ↳ {lv}")
