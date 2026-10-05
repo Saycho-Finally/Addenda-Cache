@@ -15,7 +15,7 @@ from cachecortex.cache_tiers import CachePolicy, CacheTiers
 from cachecortex.hitrate_budget import Scene, predict
 from cachecortex.optimize_stack import plan as plan_stack
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 __all__ = [
     "GenRequest", "Generation", "ModelAdapter", "cache_usage",
