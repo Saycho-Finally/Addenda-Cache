@@ -53,6 +53,37 @@ print(v.hit_rate, v.levers)
 | 前缀污染对照（nonce 隔离） | **0%**（反模式断崖式确认） |
 | 预热对照 | 轮 1 命中从 0% → **96.7%**（冷启动消灭） |
 
+## 效果口径：必须按工作负载拆分
+
+**聚合命中率会掩盖主负载的缓存侵蚀。** 同一个系统里，"稳定 agent" 与"研究型 agent"
+的命中率可能相差数倍，平均值会把两端都糊掉。本库因此**默认同时输出聚合与拆分两份**，
+并把低命中负载显式标出（默认阈值 0.4——工程经验值，稳定负载低于它通常意味着
+前缀里混进了动态内容：时间戳、用户 ID、增长的工作记忆）。
+
+`cachecortex/metrics.py` 给出四个口径：
+
+| 口径 | 含义 | 用途 |
+|---|---|---|
+| `cached_read_share` | 缓存读取 token / 输入 token | 判断缓存边界有没有盖住正文 |
+| `ttft_p50` / `ttft_p95` | 首 token 延迟分位数 | 命中应把 p50 与 p95 一起压低 |
+| `ttft_shift` | 启用缓存前后 p50/p95 的位移（正数 = 变快） | 量化"快了多少" |
+| `by_workload` | 上述口径的按负载拆分视图 | 定位是哪个负载在吃掉缓存 |
+
+`diagnose()` 把口径翻译成可执行的判断，只在有信号时给结论。示例：两类负载分别为
+0.90 与 0.05 时，聚合值 0.475 看起来"还行"，但诊断会直接点出
+`research_agent` 需要检查前缀。
+
+### Tier 与 provider 三要素的映射（断点 / 回看窗 / TTL）
+
+| Tier | 缓存断点 | 回看窗 | TTL |
+|---|---|---|---|
+| Tier1 自动前缀 | 无显式断点（provider 自动向前推进） | 块级匹配，可缓存粒度由 provider 定 | 随会话活跃度，空闲即失效 |
+| Tier2 显式标记 | 单请求上限 4 个缓存断点 | 每断点最多 20 个内容块 | 分档 5 分钟 / 1 小时 / 24 小时；1 小时档须排在 5 分钟档之前 |
+| Tier3 响应缓存 | 不适用（无前缀缓存） | 不适用 | 由应用层自行管理 |
+
+Tier2 一行的具体数值据 Anthropic 缓存文档口径；Tier1 行为为自动推进，无显式断点。
+该表同时通过 MCP 工具 `cache_tier_guide` 以程序可读形式暴露。
+
 ## 这个仓库不是什么
 
 先说边界：
@@ -68,8 +99,8 @@ print(v.hit_rate, v.levers)
 ## 仓库结构
 
 ```
-cachecortex/      库源码（core / prefix_bank / cache_tiers / hitrate_budget / optimize_stack）
-tests/            端到端单测（六项，不调真实 API）
+cachecortex/      库源码（core / prefix_bank / cache_tiers / hitrate_budget / optimize_stack / metrics）
+tests/            端到端单测与口径测试（31 项，不调真实 API）
 benchmarks/       对标基准（sim 模拟 / live 真实双模式）+ 实测原始 JSON
 results/          关键实验数据快照
 reports/          三定律技术报告

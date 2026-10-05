@@ -5,6 +5,23 @@
 
 ## [Unreleased]
 
+## [Unreleased]
+
+## [0.4.0] - 2026-10-05
+
+### Added
+
+- **按工作负载拆分的缓存口径**（`cachecortex/metrics.py`）：聚合口径会掩盖主负载的
+  缓存侵蚀，故默认同时输出聚合与拆分两份，并显式标出低命中负载（默认阈值 0.4）
+- 两个业界主指标：`cached_read_share`（缓存读取 token / 输入 token）与
+  TTFT 的 p50/p95 及 `ttft_shift`（启用缓存前后的位移，正数表示变快）
+- `diagnose()` 把口径翻译成可执行判断（低命中负载 → 查前缀动态内容；负载间差异
+  显著 → 指出聚合值掩盖了差异）
+- MCP server 新增 `cache_workload_report`（第四个工具，per-workload 拆分入口）；
+  `cache_tier_guide` 补 Tier 与缓存断点/回看窗/TTL 的映射表
+- README 新增「效果口径」与「Tier 映射」两节
+- `tests/test_v4_metrics.py`：25 项测试
+
 ## [0.3.0] - 2026-10-05
 
 ### Removed

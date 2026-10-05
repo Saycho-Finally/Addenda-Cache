@@ -1,9 +1,10 @@
 """PPBExt-Cache 的 MCP server（stdio 传输，零依赖）。
 
 暴露PPBExt-Cache的**离线**能力为 MCP 工具（不触发真实 API 调用）：
-  cache_hitrate_predict  —— 按场景参数预测缓存命中率（三定律模型）
-  cache_stack_recommend  —— 按场景推荐杠杆组合（预算/栈）
-  cache_tier_guide       —— provider 缓存能力三档（自动前缀/显式标记/无缓存）说明
+  cache_hitrate_predict   —— 按场景参数预测缓存命中率（三定律模型）
+  cache_stack_recommend   —— 按场景推荐杠杆组合（预算/栈）
+  cache_tier_guide        —— provider 缓存能力三档（自动前缀/显式标记/无缓存）说明
+  cache_workload_report   —— 按工作负载拆分的命中率口径 + TTFT 位移（调用方提供实测样本）
 
 协议：JSON-RPC 2.0 over stdio（initialize / tools/list / tools/call）。
 运行：python mcp_server.py
@@ -15,6 +16,9 @@ import json
 import sys
 
 sys.path.insert(0, ".")
+
+from cachecortex.metrics import (LOW_HIT_THRESHOLD, CacheSample, diagnose,  # noqa: E402
+                                 report, ttft_shift)
 
 TOOLS = [
     {
@@ -49,8 +53,38 @@ TOOLS = [
     {
         "name": "cache_tier_guide",
         "description": "provider 缓存能力三档说明（Tier1 自动前缀 / Tier2 显式标记 / "
-                       "Tier3 响应缓存），含各档的编排纪律",
+                       "Tier3 响应缓存），含各档的编排纪律，以及 Tier 与"
+                       "缓存断点/回看窗/TTL 三者的映射表",
         "inputSchema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "cache_workload_report",
+        "description": "按工作负载拆分的缓存口径（调用方提供实测样本，本工具只做计算）。"
+                       "输出聚合与拆分两份命中率、缓存读取 token 占比、TTFT 的 p50/p95，"
+                       "并标出低命中负载；可选传入 ttft_before/ttft_after 计算 TTFT 位移。"
+                       "拆分的意义：聚合命中率会掩盖主负载的缓存侵蚀",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "samples": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "workload": {"type": "string"},
+                            "input_tokens": {"type": "integer"},
+                            "cached_read_tokens": {"type": "integer"},
+                            "ttft_ms": {"type": "number"},
+                        },
+                        "required": ["workload", "input_tokens"],
+                    },
+                },
+                "low_threshold": {"type": "number", "default": 0.4},
+                "ttft_before": {"type": "array", "items": {"type": "number"}},
+                "ttft_after": {"type": "array", "items": {"type": "number"}},
+            },
+            "required": ["samples"],
+        },
     },
 ]
 
@@ -69,6 +103,26 @@ TIERS = {
         "examples": ["无原生缓存的 provider"],
         "discipline": "响应级缓存（语义去重）；temperature>0 的采样任务慎用（破坏独立性）",
         "note": "兜底档，命中语义不同于前缀缓存",
+    },
+}
+
+# C3：Tier 与 provider 三要素（缓存断点 / 回看窗 / TTL）的映射。
+# Tier2 一行的具体数值据 Anthropic 缓存文档口径；Tier1 为自动推进，无显式断点。
+PROVIDER_MAPPING = {
+    "tier1_auto_prefix": {
+        "breakpoints": "无显式断点（provider 自动向前推进）",
+        "lookback": "块级匹配，可缓存粒度由 provider 定",
+        "ttl": "随会话活跃度，空闲即失效",
+    },
+    "tier2_explicit_marker": {
+        "breakpoints": "单请求上限 4 个缓存断点",
+        "lookback": "每断点最多 20 个内容块",
+        "ttl": "分档 5 分钟 / 1 小时 / 24 小时；1 小时档须排在 5 分钟档之前",
+    },
+    "tier3_response_cache": {
+        "breakpoints": "不适用（无前缀缓存）",
+        "lookback": "不适用",
+        "ttl": "由应用层自行管理",
     },
 }
 
@@ -102,8 +156,22 @@ def _call_tool(name: str, args: dict) -> dict:
         }
         return {"priority": priority, "recommended_stack": stacks[priority]}
     if name == "cache_tier_guide":
-        return {"tiers": TIERS,
+        return {"tiers": TIERS, "provider_mapping": PROVIDER_MAPPING,
                 "detection": "CacheTiers.probe：两次同前缀请求按 usage 字段判层"}
+    if name == "cache_workload_report":
+        samples = [CacheSample(workload=s["workload"],
+                               input_tokens=int(s["input_tokens"]),
+                               cached_read_tokens=int(s.get("cached_read_tokens", 0)),
+                               ttft_ms=float(s.get("ttft_ms", 0.0)))
+                   for s in args.get("samples", [])]
+        rep = report(samples,
+                     low_hit_threshold=float(args.get("low_threshold",
+                                                      LOW_HIT_THRESHOLD)))
+        out = rep.to_dict()
+        out["diagnosis"] = diagnose(rep)
+        if args.get("ttft_before") and args.get("ttft_after"):
+            out["ttft_shift"] = ttft_shift(args["ttft_before"], args["ttft_after"])
+        return out
     raise ValueError(f"unknown tool: {name}")
 
 
@@ -113,7 +181,7 @@ def handle(req: dict) -> dict | None:
     if method == "initialize":
         return {"jsonrpc": "2.0", "id": rid, "result": {
             "protocolVersion": "2026-06-18",
-            "serverInfo": {"name": "ppbext-cache", "version": "0.2.0"},
+            "serverInfo": {"name": "ppbext-cache", "version": "0.4.0"},
             "capabilities": {"tools": {}}}}
     if method == "notifications/initialized":
         return None

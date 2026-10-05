@@ -14,13 +14,17 @@ from cachecortex.prefix_bank import PrefixBankSession, DynamicInPrefixSession
 from cachecortex.cache_tiers import CachePolicy, CacheTiers
 from cachecortex.hitrate_budget import Scene, predict
 from cachecortex.optimize_stack import plan as plan_stack
+from cachecortex.metrics import (LOW_HIT_THRESHOLD, CacheReport, CacheSample,
+                                 diagnose, percentile, report, ttft_shift)
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 __all__ = [
     "GenRequest", "Generation", "ModelAdapter", "cache_usage",
     "PrefixBankSession", "DynamicInPrefixSession",
     "CachePolicy", "CacheTiers",
     "Scene", "predict", "plan_stack",
+    "CacheSample", "CacheReport", "report", "ttft_shift", "diagnose",
+    "percentile", "LOW_HIT_THRESHOLD",
     "__version__",
 ]
