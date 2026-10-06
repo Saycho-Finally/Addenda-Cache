@@ -202,18 +202,63 @@ def handle(req: dict) -> dict | None:
             "error": {"code": -32601, "message": f"method not found: {method}"}}
 
 
-def main() -> None:
-    for line in sys.stdin:
+def _read_one(stream):
+    """读一条消息，兼容两种 stdio 分帧。
+
+    返回 (obj, framing)：framing ∈ {"content-length", "ndjson", "eof"}。
+
+    背景（2026-10-07 修正）：MCP 的 stdio 传输用 LSP 式头
+    （`Content-Length: N\\r\\n\\r\\n{json}`），而本服务原先只认"一行一条 JSON"。
+    规范客户端发来的头会被 `json.loads` 抛错后**静默跳过**，客户端因此永远等不到
+    响应（表现为握手挂住，与协议版本无关——服务对任意版本都正确应答）。
+    """
+    while True:
+        line = stream.readline()
+        if not line:
+            return None, "eof"
         line = line.strip()
         if not line:
             continue
+        if line.lower().startswith("content-length:"):
+            try:
+                n = int(line.split(":", 1)[1].strip())
+            except ValueError:
+                continue
+            while True:                      # 跳过其余头到空行
+                h = stream.readline()
+                if not h or not h.strip():
+                    break
+            body = stream.read(n)
+            try:
+                return json.loads(body), "content-length"
+            except json.JSONDecodeError:
+                continue
         try:
-            req = json.loads(line)
+            return json.loads(line), "ndjson"
         except json.JSONDecodeError:
             continue
+
+
+def main() -> None:
+    while True:
+        req, framing = _read_one(sys.stdin)
+        if framing == "eof":
+            break
+        if req is None:
+            continue
         resp = handle(req)
-        if resp is not None:
-            sys.stdout.write(json.dumps(resp, ensure_ascii=False) + "\n")
+        if resp is None:
+            continue                          # 通知无需回复
+        body = json.dumps(resp, ensure_ascii=False)
+        if framing == "content-length":
+            # 按请求所用的分帧回复（规范客户端只认这一种）
+            blob = body.encode("utf-8")
+            sys.stdout.write(f"Content-Length: {len(blob)}\r\n\r\n")
+            sys.stdout.flush()
+            sys.stdout.buffer.write(blob)
+            sys.stdout.buffer.flush()
+        else:
+            sys.stdout.write(body + "\n")
             sys.stdout.flush()
 
 

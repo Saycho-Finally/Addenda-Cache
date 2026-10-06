@@ -9,7 +9,12 @@
 
 ### Fixed
 
-- **SKILL.md 的接口名不存在**（2026-10-07 外部评审触发，已复核确认）：
+- **MCP stdio 分帧不兼容规范客户端**（2026-10-07 复核确认）：服务原先只认
+  "一行一条 JSON"（NDJSON），而 MCP 的 stdio 传输用 LSP 式 `Content-Length: N`
+  头。规范客户端发来的头被 `json.loads` 抛错后**静默跳过**，客户端永远收不到响应
+  （表现为握手挂住——这与协议版本无关，服务对任意版本都正确应答）。
+  现已同时支持两种分帧，并按请求所用的分帧回复
+- SKILL.md 的接口名不存在（2026-10-07 外部评审触发，已复核确认）：
   原写 `ThreeRegionSession` 与 `HitrateBudget` 两个名字（连同 `CacheTiers` 一起
   作为一条 import 语句），其中前两者在包内**不存在**，照抄会 ImportError。
   已按 `cachecortex/__init__.py` 的实际 `__all__` 更正，并补 MCP 四工具说明
