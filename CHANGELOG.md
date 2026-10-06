@@ -7,6 +7,15 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- **SKILL.md 的接口名不存在**（2026-10-07 外部评审触发，已复核确认）：
+  原写 `ThreeRegionSession` 与 `HitrateBudget` 两个名字（连同 `CacheTiers` 一起
+  作为一条 import 语句），其中前两者在包内**不存在**，照抄会 ImportError。
+  已按 `cachecortex/__init__.py` 的实际 `__all__` 更正，并补 MCP 四工具说明
+- 新增跨仓库检查脚本 `doc_import_check.py`（工作区），用于自动发现
+  "文档里的 import 与包内实际符号不一致"这类错误
+
 ### Added
 
 - `reports/外部对照_三定律_2026-10-06.md`：三定律与公开实践的逐条对照（C5）。

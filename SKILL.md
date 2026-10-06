@@ -20,7 +20,18 @@ description: "LLM 前缀缓存的应用侧编排：三定律、provider 能力�
 
 ## 接口
 
-`from cachecortex import ThreeRegionSession, CacheTiers, HitrateBudget`
+```python
+from cachecortex import (PrefixBankSession, DynamicInPrefixSession,
+                         CacheTiers, CachePolicy, Scene, predict, plan_stack)
+```
+
+MCP 形态（4 个离线工具，不触发真实 API 调用）：
+`cache_hitrate_predict` / `cache_stack_recommend` / `cache_tier_guide` /
+`cache_workload_report`。
+
+> 修正记录（2026-10-07）：本节此前写作 `ThreeRegionSession, CacheTiers, HitrateBudget`
+> ——其中 `ThreeRegionSession` 与 `HitrateBudget` **在包内不存在**，照抄会 ImportError。
+> 已按 `cachecortex/__init__.py` 的实际 `__all__` 更正。
 
 ## 边界
 
